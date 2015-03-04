@@ -16,10 +16,10 @@
 package org.tinymediamanager.scraper.rottentomatoes.entities;
 
 public class RTLinks {
-  public String self;
-  public String alternate;
-  public String cast;
-  public String clips;
-  public String reviews;
-  public String similar;
+  public String self      = "";
+  public String alternate = "";
+  public String cast      = "";
+  public String clips     = "";
+  public String reviews   = "";
+  public String similar   = "";
 }

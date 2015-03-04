@@ -15,9 +15,10 @@
  */
 package org.tinymediamanager.scraper.rottentomatoes.entities;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class RTCast {
-  public String       name;
-  public List<String> characters;
+  public String       name       = "";
+  public List<String> characters = Arrays.asList();
 }

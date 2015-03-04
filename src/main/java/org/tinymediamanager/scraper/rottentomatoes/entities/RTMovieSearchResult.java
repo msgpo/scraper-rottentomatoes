@@ -15,9 +15,10 @@
  */
 package org.tinymediamanager.scraper.rottentomatoes.entities;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class RTMovieSearchResult {
-  public Integer total;
-  public List<RTMovieInfo> movies;
+  public Integer           total  = 0;
+  public List<RTMovieInfo> movies = Arrays.asList();
 }

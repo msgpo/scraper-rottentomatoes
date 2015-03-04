@@ -16,5 +16,5 @@
 package org.tinymediamanager.scraper.rottentomatoes.entities;
 
 public class RTAlternateIds {
-  public String imdb;
+  public String imdb = "";
 }

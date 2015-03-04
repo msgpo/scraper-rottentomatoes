@@ -16,8 +16,8 @@
 package org.tinymediamanager.scraper.rottentomatoes.entities;
 
 public class RTPosters {
-  public String thumbnail;
-  public String profile;
-  public String detailed;
-  public String original;
+  public String thumbnail = "";
+  public String profile   = "";
+  public String detailed  = "";
+  public String original  = "";
 }

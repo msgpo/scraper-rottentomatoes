@@ -15,23 +15,24 @@
  */
 package org.tinymediamanager.scraper.rottentomatoes.entities;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class RTMovieInfo {
-  public Integer          id;
-  public String           title;
-  public Integer          year;
-  public List<String>     genres;
-  public String           mpaaRating;
-  public Integer          runtime;
-  public String           criticsConsensus;
-  public RTReleaseDate    releaseDates;
-  public RTRating         ratings;
-  public String           synopsis;
-  public RTPosters        posters;
-  public List<RTCast>     abridgedCast;
-  public List<RTDirector> abridgedDirectors;
-  public String           studio;
-  public RTAlternateIds   alternateIds;
-  public RTLinks          links;
+  public Integer          id = 0;
+  public String           title = "";
+  public Integer          year = 0;
+  public List<String>     genres = Arrays.asList();
+  public String           mpaaRating = "";
+  public Integer          runtime = 0;
+  public String           criticsConsensus = "";
+  public RTReleaseDate    releaseDates = new RTReleaseDate();
+  public RTRating         ratings = new RTRating();
+  public String           synopsis = "";
+  public RTPosters        posters = new RTPosters();
+  public List<RTCast>     abridgedCast = Arrays.asList();
+  public List<RTDirector> abridgedDirectors = Arrays.asList();
+  public String           studio = "";
+  public RTAlternateIds   alternateIds = new RTAlternateIds();
+  public RTLinks          links = new RTLinks();
 }

@@ -16,5 +16,5 @@
 package org.tinymediamanager.scraper.rottentomatoes.entities;
 
 public class RTDirector {
-  public String name;
+  public String name = "";
 }

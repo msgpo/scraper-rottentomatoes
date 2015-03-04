@@ -16,8 +16,8 @@
 package org.tinymediamanager.scraper.rottentomatoes.entities;
 
 public class RTRating {
-  public String  critics_rating;
-  public Integer critics_score;
-  public String  audience_rating;
-  public Integer audience_score;
+  public String  critics_rating  = "";
+  public Integer critics_score   = 0;
+  public String  audience_rating = "";
+  public Integer audience_score  = 0;
 }

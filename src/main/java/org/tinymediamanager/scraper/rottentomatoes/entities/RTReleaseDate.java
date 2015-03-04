@@ -16,6 +16,6 @@
 package org.tinymediamanager.scraper.rottentomatoes.entities;
 
 public class RTReleaseDate {
-  public String theater;
-  public String dvd;
+  public String theater = "";
+  public String dvd     = "";
 }
