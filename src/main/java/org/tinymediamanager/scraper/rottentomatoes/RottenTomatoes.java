@@ -34,14 +34,19 @@ import com.google.gson.internal.bind.DateTypeAdapter;
 import org.tinymediamanager.scraper.rottentomatoes.services.MovieAliasService;
 import org.tinymediamanager.scraper.rottentomatoes.services.MovieInfoService;
 import org.tinymediamanager.scraper.rottentomatoes.services.MovieSearchService;
+import org.tinymediamanager.scraper.util.TmmHttpClient;
 import retrofit.RequestInterceptor;
 import retrofit.RestAdapter;
+import retrofit.client.OkClient;
 import retrofit.converter.GsonConverter;
 
 import java.lang.reflect.Type;
 import java.util.Date;
 
-public class RottenTomatoes {
+/**
+ * The class RottenTomatoes is the API abstraction of the rotten tomatoes API
+ */
+class RottenTomatoes {
   // the base API url
   public static final String API_URL       = "http://api.rottentomatoes.com/api/public/v1.0/";
   // the api key query parameter; hast to be supplied at all calls
@@ -86,6 +91,7 @@ public class RottenTomatoes {
       RestAdapter.Builder builder = newRestAdapterBuilder();
       builder.setEndpoint(API_URL);
       builder.setConverter(new GsonConverter(getGsonBuilder().create()));
+      builder.setClient(new OkClient(TmmHttpClient.getHttpClient()));
       builder.setRequestInterceptor(new RequestInterceptor() {
         @Override
         public void intercept(RequestInterceptor.RequestFacade requestFacade) {

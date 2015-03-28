@@ -70,6 +70,11 @@ public class RottenTomatoesMetadataProvider implements IMovieMetadataProvider {
   @Override
   public MediaMetadata getMetadata(MediaScrapeOptions options) throws Exception {
     LOGGER.debug("getMetadata() " + options.toString());
+
+    if (options.getType() != MediaType.MOVIE) {
+      throw new UnsupportedMediaTypeException(options.getType());
+    }
+
     // check if there is a md in the result
     if (options.getResult() != null && options.getResult().getMediaMetadata() != null) {
       LOGGER.debug("RottenTomatoes: getMetadata from cache: " + options.getResult());
@@ -192,7 +197,7 @@ public class RottenTomatoesMetadataProvider implements IMovieMetadataProvider {
       return searchMovies(query);
     }
 
-    throw new Exception("wrong media type for this scraper");
+    throw new UnsupportedMediaTypeException(query.getMediaType());
   }
 
   public List<MediaSearchResult> searchMovies(MediaSearchOptions query) throws Exception {
