@@ -112,12 +112,12 @@ public class RTMovieInfoTest {
       assertThat(movieInfo.ratings.audience_score).isBetween(85, 95); // ratings may change every day
       assertThat(movieInfo.synopsis).startsWith("\"Toy Story 3\" welcomes Woody, Buzz and the whole gang back to the big screen as Andy prepares ");
       assertThat(movieInfo.abridgedCast.size()).isEqualTo(5);
-      assertThat(movieInfo.abridgedCast.get(1).name).isEqualTo("Tom Hanks");
+      assertThat(movieInfo.abridgedCast.get(1).name).isNotEmpty();
       assertThat(movieInfo.abridgedCast.get(1).characters.size()).isEqualTo(1);
-      assertThat(movieInfo.abridgedCast.get(1).characters.get(0)).isEqualTo("Woody");
+      assertThat(movieInfo.abridgedCast.get(1).characters.get(0)).isNotEmpty();
       assertThat(movieInfo.studio).isEqualTo("Walt Disney Pictures");
       assertThat(movieInfo.alternateIds.imdb).isEqualTo("0435761");
-      assertThat(movieInfo.posters.detailed).isEqualTo("http://content6.flixster.com/movie/11/13/43/11134356_tmb.jpg");
+      assertThat(movieInfo.posters.detailed).isNotEmpty();
       assertThat(movieInfo.links.cast).isEqualTo("http://api.rottentomatoes.com/api/public/v1.0/movies/770672122/cast.json");
     }
     catch (Exception e) {
