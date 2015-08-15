@@ -79,7 +79,7 @@ public class RottenTomatoesMetadataProviderTest {
       assertEquals("rating", 8.8d, md.getDoubleValue(MediaMetadata.RATING), 0.2d);
       assertEquals("plot", "", md.getStringValue(MediaMetadata.PLOT));
       assertEquals("production company", "Universal Pictures", md.getStringValue(MediaMetadata.PRODUCTION_COMPANY));
-      assertEquals("imdbid", "tt0114746", md.getId(MediaMetadata.IMDBID));
+      assertEquals("imdbid", "tt0114746", md.getId(MediaMetadata.IMDB));
       assertEquals("runtime", 130, (int) md.getIntegerValue(MediaMetadata.RUNTIME));
 
       assertEquals("genres", 3, md.getGenres().size());

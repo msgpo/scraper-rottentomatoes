@@ -156,7 +156,7 @@ public class RottenTomatoesMetadataProvider implements IMovieMetadataProvider {
 
     md.setId(providerInfo.getId(), movie.id);
     if (StringUtils.isNotBlank(movie.alternateIds.imdb)) {
-      md.setId(MediaMetadata.IMDBID, "tt" + movie.alternateIds.imdb);
+      md.setId(MediaMetadata.IMDB, "tt" + movie.alternateIds.imdb);
     }
     md.storeMetadata(MediaMetadata.PLOT, movie.synopsis);
     md.storeMetadata(MediaMetadata.TITLE, movie.title);
