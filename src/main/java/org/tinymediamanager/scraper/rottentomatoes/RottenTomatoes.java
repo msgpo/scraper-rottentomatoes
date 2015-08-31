@@ -102,7 +102,7 @@ class RottenTomatoes {
           return Integer.valueOf(json.getAsInt());
         }
         catch (NumberFormatException e) {
-          return null;
+          return 0;
         }
       }
     });
