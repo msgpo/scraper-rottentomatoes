@@ -20,7 +20,7 @@ import com.google.gson.internal.bind.DateTypeAdapter;
 import org.tinymediamanager.scraper.rottentomatoes.services.MovieAliasService;
 import org.tinymediamanager.scraper.rottentomatoes.services.MovieInfoService;
 import org.tinymediamanager.scraper.rottentomatoes.services.MovieSearchService;
-import org.tinymediamanager.scraper.util.TmmHttpClient;
+import org.tinymediamanager.scraper.http.TmmHttpClient;
 import retrofit.RequestInterceptor;
 import retrofit.RestAdapter;
 import retrofit.client.OkClient;

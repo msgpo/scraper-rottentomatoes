@@ -19,6 +19,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.tinymediamanager.scraper.*;
 import org.tinymediamanager.scraper.MediaSearchOptions.SearchParam;
+import org.tinymediamanager.scraper.mediaprovider.IMovieMetadataProvider;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
