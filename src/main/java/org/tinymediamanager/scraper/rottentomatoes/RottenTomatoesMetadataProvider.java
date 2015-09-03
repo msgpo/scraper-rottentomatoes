@@ -15,11 +15,13 @@
  */
 package org.tinymediamanager.scraper.rottentomatoes;
 
-import net.xeoh.plugins.base.annotations.PluginImplementation;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.tinymediamanager.scraper.mediaprovider.IMovieMetadataProvider;
 import org.tinymediamanager.scraper.MediaCastMember;
 import org.tinymediamanager.scraper.MediaCastMember.CastType;
 import org.tinymediamanager.scraper.MediaGenres;
@@ -29,18 +31,17 @@ import org.tinymediamanager.scraper.MediaScrapeOptions;
 import org.tinymediamanager.scraper.MediaSearchOptions;
 import org.tinymediamanager.scraper.MediaSearchResult;
 import org.tinymediamanager.scraper.MediaType;
-import org.tinymediamanager.scraper.MetadataUtil;
 import org.tinymediamanager.scraper.UnsupportedMediaTypeException;
+import org.tinymediamanager.scraper.mediaprovider.IMovieMetadataProvider;
 import org.tinymediamanager.scraper.rottentomatoes.entities.RTCast;
 import org.tinymediamanager.scraper.rottentomatoes.entities.RTDirector;
 import org.tinymediamanager.scraper.rottentomatoes.entities.RTMovieInfo;
 import org.tinymediamanager.scraper.rottentomatoes.entities.RTMovieSearchResult;
 import org.tinymediamanager.scraper.util.ApiKey;
+import org.tinymediamanager.scraper.util.MetadataUtil;
 import org.tinymediamanager.scraper.util.RingBuffer;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import net.xeoh.plugins.base.annotations.PluginImplementation;
 
 /**
  * The class RottenTomatoesMetadataProvider. A scraper for Rotten tomatoes
@@ -54,13 +55,13 @@ public class RottenTomatoesMetadataProvider implements IMovieMetadataProvider {
   private static final MediaProviderInfo providerInfo      = createMediaProviderInfo();
   private static RottenTomatoes          api;
 
-  public RottenTomatoesMetadataProvider(){
+  public RottenTomatoesMetadataProvider() {
   }
 
-  private static MediaProviderInfo createMediaProviderInfo(){
-    MediaProviderInfo providerInfo =new MediaProviderInfo("rottentomatoes", "Rotten Tomatoes",
-            "<html><h3>Rotten Tomatoes</h3><br />An american movie database.<br />Does not provide plot for older movies via the API.<br /><br />Available languages: EN</html>",
-            RottenTomatoesMetadataProvider.class.getResource("/rottentomatoes_com.png"));
+  private static MediaProviderInfo createMediaProviderInfo() {
+    MediaProviderInfo providerInfo = new MediaProviderInfo("rottentomatoes", "Rotten Tomatoes",
+        "<html><h3>Rotten Tomatoes</h3><br />An american movie database.<br />Does not provide plot for older movies via the API.<br /><br />Available languages: EN</html>",
+        RottenTomatoesMetadataProvider.class.getResource("/rottentomatoes_com.png"));
 
     return providerInfo;
   }
@@ -311,9 +312,6 @@ public class RottenTomatoesMetadataProvider implements IMovieMetadataProvider {
           sr.setYear(releaseDate.substring(0, 4));
         }
       }
-
-      // populate extra args
-      MetadataUtil.copySearchQueryToSearchResult(query, sr);
 
       if (imdbId.equals(sr.getIMDBId())) {
         // perfect match
