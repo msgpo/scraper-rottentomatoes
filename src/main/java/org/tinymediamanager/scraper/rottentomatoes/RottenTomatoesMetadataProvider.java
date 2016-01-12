@@ -62,7 +62,7 @@ public class RottenTomatoesMetadataProvider implements IMovieMetadataProvider {
     MediaProviderInfo providerInfo = new MediaProviderInfo("rottentomatoes", "Rotten Tomatoes",
         "<html><h3>Rotten Tomatoes</h3><br />An american movie database.<br />Does not provide plot for older movies via the API.<br /><br />Available languages: EN</html>",
         RottenTomatoesMetadataProvider.class.getResource("/rottentomatoes_com.png"));
-
+    providerInfo.setVersion(RottenTomatoes.class);
     return providerInfo;
   }
 
