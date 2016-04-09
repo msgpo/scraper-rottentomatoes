@@ -22,16 +22,16 @@ import java.util.List;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.tinymediamanager.scraper.MediaCastMember;
-import org.tinymediamanager.scraper.MediaCastMember.CastType;
-import org.tinymediamanager.scraper.MediaGenres;
 import org.tinymediamanager.scraper.MediaMetadata;
 import org.tinymediamanager.scraper.MediaProviderInfo;
 import org.tinymediamanager.scraper.MediaScrapeOptions;
 import org.tinymediamanager.scraper.MediaSearchOptions;
 import org.tinymediamanager.scraper.MediaSearchResult;
-import org.tinymediamanager.scraper.MediaType;
 import org.tinymediamanager.scraper.UnsupportedMediaTypeException;
+import org.tinymediamanager.scraper.entities.MediaCastMember;
+import org.tinymediamanager.scraper.entities.MediaGenres;
+import org.tinymediamanager.scraper.entities.MediaType;
+import org.tinymediamanager.scraper.entities.MediaCastMember.CastType;
 import org.tinymediamanager.scraper.mediaprovider.IMovieMetadataProvider;
 import org.tinymediamanager.scraper.rottentomatoes.entities.RTCast;
 import org.tinymediamanager.scraper.rottentomatoes.entities.RTDirector;
@@ -159,12 +159,12 @@ public class RottenTomatoesMetadataProvider implements IMovieMetadataProvider {
     if (StringUtils.isNotBlank(movie.alternateIds.imdb)) {
       md.setId(MediaMetadata.IMDB, "tt" + movie.alternateIds.imdb);
     }
-    md.storeMetadata(MediaMetadata.PLOT, movie.synopsis);
-    md.storeMetadata(MediaMetadata.TITLE, movie.title);
-    md.storeMetadata(MediaMetadata.YEAR, movie.year);
-    md.storeMetadata(MediaMetadata.PRODUCTION_COMPANY, movie.studio);
-    md.storeMetadata(MediaMetadata.RATING, movie.ratings.audience_score / 10d);
-    md.storeMetadata(MediaMetadata.RUNTIME, movie.runtime);
+    md.setPlot(movie.synopsis);
+    md.setTitle(movie.title);
+    md.setYear(movie.year);
+    md.addProductionCompany(movie.studio);
+    md.setRating(movie.ratings.audience_score / 10f);
+    md.setRuntime(movie.runtime);
 
     // genres
     for (String genre : movie.genres) {
@@ -301,15 +301,19 @@ public class RottenTomatoesMetadataProvider implements IMovieMetadataProvider {
         }
       }
 
-      sr.setYear(Integer.toString(movie.year));
+      sr.setYear(movie.year);
       // parse release date to year
-      if (StringUtils.isBlank(sr.getYear()) && movie.releaseDates != null) {
+      if (sr.getYear() == 0 && movie.releaseDates != null) {
         String releaseDate = movie.releaseDates.theater;
         if (StringUtils.isBlank(releaseDate)) {
           releaseDate = movie.releaseDates.dvd;
         }
         if (releaseDate != null && releaseDate.length() > 3) {
-          sr.setYear(releaseDate.substring(0, 4));
+          try {
+            sr.setYear(Integer.parseInt(releaseDate.substring(0, 4)));
+          }
+          catch (Exception ignored) {
+          }
         }
       }
 

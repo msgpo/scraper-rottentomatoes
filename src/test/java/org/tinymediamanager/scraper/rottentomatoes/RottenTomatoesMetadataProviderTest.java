@@ -15,18 +15,20 @@
  */
 package org.tinymediamanager.scraper.rottentomatoes;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.*;
+import static org.junit.Assert.fail;
 
 import java.util.List;
 
 import org.junit.Test;
-import org.tinymediamanager.scraper.MediaGenres;
 import org.tinymediamanager.scraper.MediaMetadata;
 import org.tinymediamanager.scraper.MediaScrapeOptions;
 import org.tinymediamanager.scraper.MediaSearchOptions;
 import org.tinymediamanager.scraper.MediaSearchOptions.SearchParam;
+import org.tinymediamanager.scraper.entities.MediaGenres;
+import org.tinymediamanager.scraper.entities.MediaType;
 import org.tinymediamanager.scraper.MediaSearchResult;
-import org.tinymediamanager.scraper.MediaType;
 import org.tinymediamanager.scraper.mediaprovider.IMovieMetadataProvider;
 
 public class RottenTomatoesMetadataProviderTest {
@@ -57,13 +59,13 @@ public class RottenTomatoesMetadataProviderTest {
       options.setId(rt.getProviderInfo().getId(), "15508");
       MediaMetadata md = rt.getMetadata(options);
       assertNotNull("MediaMetadata", md);
-      assertEquals("title", "Twelve Monkeys (12 Monkeys)", md.getStringValue(MediaMetadata.TITLE));
-      assertEquals("year", "1995", md.getStringValue(MediaMetadata.YEAR));
-      assertEquals("rating", 8.8d, md.getDoubleValue(MediaMetadata.RATING), 0.2d);
-      assertEquals("plot", "", md.getStringValue(MediaMetadata.PLOT));
-      assertEquals("production company", "Universal Pictures", md.getStringValue(MediaMetadata.PRODUCTION_COMPANY));
+      assertEquals("title", "Twelve Monkeys (12 Monkeys)", md.getTitle());
+      assertEquals("year", "1995", md.getYear());
+      assertEquals("rating", 8.8d, md.getRating(), 0.2d);
+      assertEquals("plot", "", md.getPlot());
+      assertThat(md.getProductionCompanies()).containsOnly("Universal Pictures");
       assertEquals("imdbid", "tt0114746", md.getId(MediaMetadata.IMDB));
-      assertEquals("runtime", 130, (int) md.getIntegerValue(MediaMetadata.RUNTIME));
+      assertEquals("runtime", 130, (int) md.getRuntime());
 
       assertEquals("genres", 3, md.getGenres().size());
       assertEquals("Drama", true, md.getGenres().contains(MediaGenres.DRAMA));
