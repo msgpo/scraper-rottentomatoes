@@ -19,6 +19,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import net.xeoh.plugins.base.annotations.PluginImplementation;
+
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,9 +31,9 @@ import org.tinymediamanager.scraper.MediaSearchOptions;
 import org.tinymediamanager.scraper.MediaSearchResult;
 import org.tinymediamanager.scraper.UnsupportedMediaTypeException;
 import org.tinymediamanager.scraper.entities.MediaCastMember;
+import org.tinymediamanager.scraper.entities.MediaCastMember.CastType;
 import org.tinymediamanager.scraper.entities.MediaGenres;
 import org.tinymediamanager.scraper.entities.MediaType;
-import org.tinymediamanager.scraper.entities.MediaCastMember.CastType;
 import org.tinymediamanager.scraper.mediaprovider.IMovieMetadataProvider;
 import org.tinymediamanager.scraper.rottentomatoes.entities.RTCast;
 import org.tinymediamanager.scraper.rottentomatoes.entities.RTDirector;
@@ -40,8 +42,6 @@ import org.tinymediamanager.scraper.rottentomatoes.entities.RTMovieSearchResult;
 import org.tinymediamanager.scraper.util.ApiKey;
 import org.tinymediamanager.scraper.util.MetadataUtil;
 import org.tinymediamanager.scraper.util.RingBuffer;
-
-import net.xeoh.plugins.base.annotations.PluginImplementation;
 
 /**
  * The class RottenTomatoesMetadataProvider. A scraper for Rotten tomatoes
@@ -228,8 +228,8 @@ public class RottenTomatoesMetadataProvider implements IMovieMetadataProvider {
     List<MediaSearchResult> resultList = new ArrayList<MediaSearchResult>();
     String searchString = "";
 
-    if (StringUtils.isEmpty(searchString) && StringUtils.isNotEmpty(query.get(MediaSearchOptions.SearchParam.QUERY))) {
-      searchString = query.get(MediaSearchOptions.SearchParam.QUERY);
+    if (StringUtils.isEmpty(searchString) && StringUtils.isNotEmpty(query.getQuery())) {
+      searchString = query.getQuery();
     }
 
     if (StringUtils.isEmpty(searchString)) {
@@ -246,8 +246,8 @@ public class RottenTomatoesMetadataProvider implements IMovieMetadataProvider {
     String imdbId = "";
     synchronized (api) {
       // 1. try with IMDBid
-      if (StringUtils.isNotEmpty(query.get(MediaSearchOptions.SearchParam.IMDBID))) {
-        imdbId = query.get(MediaSearchOptions.SearchParam.IMDBID);
+      if (StringUtils.isNotEmpty(query.getImdbId())) {
+        imdbId = query.getImdbId();
         trackConnections();
         try {
           searchResult = api.getMovieSearchService().searchMovie(imdbId);
