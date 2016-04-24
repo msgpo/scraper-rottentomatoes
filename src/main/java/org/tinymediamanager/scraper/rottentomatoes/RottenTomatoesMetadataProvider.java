@@ -281,7 +281,7 @@ public class RottenTomatoesMetadataProvider implements IMovieMetadataProvider {
         continue;
       }
 
-      MediaSearchResult sr = new MediaSearchResult(providerInfo.getId());
+      MediaSearchResult sr = new MediaSearchResult(providerInfo.getId(), query.getMediaType());
       sr.setId(Integer.toString(movie.id));
       sr.setTitle(movie.title);
 
