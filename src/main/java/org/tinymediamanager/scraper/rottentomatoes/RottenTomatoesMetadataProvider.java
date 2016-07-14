@@ -19,8 +19,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import net.xeoh.plugins.base.annotations.PluginImplementation;
-
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,6 +41,8 @@ import org.tinymediamanager.scraper.util.ApiKey;
 import org.tinymediamanager.scraper.util.MetadataUtil;
 import org.tinymediamanager.scraper.util.RingBuffer;
 
+import net.xeoh.plugins.base.annotations.PluginImplementation;
+
 /**
  * The class RottenTomatoesMetadataProvider. A scraper for Rotten tomatoes
  * 
@@ -51,7 +51,7 @@ import org.tinymediamanager.scraper.util.RingBuffer;
 @PluginImplementation
 public class RottenTomatoesMetadataProvider implements IMovieMetadataProvider {
   private static final Logger            LOGGER            = LoggerFactory.getLogger(RottenTomatoesMetadataProvider.class);
-  private static final RingBuffer<Long>  connectionCounter = new RingBuffer<Long>(5);
+  private static final RingBuffer<Long>  connectionCounter = new RingBuffer<>(5);
   private static final MediaProviderInfo providerInfo      = createMediaProviderInfo();
   private static RottenTomatoes          api;
 
@@ -225,7 +225,7 @@ public class RottenTomatoesMetadataProvider implements IMovieMetadataProvider {
 
   public List<MediaSearchResult> searchMovies(MediaSearchOptions query) throws Exception {
     LOGGER.debug("search() " + query.toString());
-    List<MediaSearchResult> resultList = new ArrayList<MediaSearchResult>();
+    List<MediaSearchResult> resultList = new ArrayList<>();
     String searchString = "";
 
     if (StringUtils.isEmpty(searchString) && StringUtils.isNotEmpty(query.getQuery())) {
