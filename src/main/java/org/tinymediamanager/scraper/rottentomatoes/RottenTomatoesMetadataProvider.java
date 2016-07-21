@@ -232,6 +232,11 @@ public class RottenTomatoesMetadataProvider implements IMovieMetadataProvider {
       searchString = query.getQuery();
     }
 
+    int year = 0;
+    if (query.getYear() != 0) {
+      year = query.getYear();
+    }
+
     if (StringUtils.isEmpty(searchString)) {
       LOGGER.debug("RT Scraper: empty searchString");
       return resultList;
@@ -323,7 +328,13 @@ public class RottenTomatoesMetadataProvider implements IMovieMetadataProvider {
       }
       else {
         // compare score based on names
-        sr.setScore(MetadataUtil.calculateScore(searchString, movie.title));
+        float score = MetadataUtil.calculateScore(searchString, movie.title);
+        if (yearDiffers(year, movie.year)) {
+          float diff = (float) Math.abs(year - movie.year) / 100;
+          LOGGER.debug("parsed year does not match search result year - downgrading score by " + diff);
+          score -= diff;
+        }
+        sr.setScore(score);
       }
 
       resultList.add(sr);
@@ -355,5 +366,12 @@ public class RottenTomatoesMetadataProvider implements IMovieMetadataProvider {
 
     currentTime = System.currentTimeMillis();
     connectionCounter.add(currentTime);
+  }
+
+  /**
+   * Is i1 != i2 (when >0)
+   */
+  private boolean yearDiffers(Integer i1, Integer i2) {
+    return i1 != null && i1 != 0 && i2 != null && i2 != 0 && i1 != i2;
   }
 }
