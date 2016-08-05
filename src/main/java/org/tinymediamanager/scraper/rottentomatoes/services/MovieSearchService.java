@@ -16,6 +16,7 @@
 package org.tinymediamanager.scraper.rottentomatoes.services;
 
 import org.tinymediamanager.scraper.rottentomatoes.entities.RTMovieSearchResult;
+
 import retrofit.http.GET;
 import retrofit.http.Query;
 

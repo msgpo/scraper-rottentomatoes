@@ -30,6 +30,7 @@ package org.tinymediamanager.scraper.rottentomatoes.services;/*
  */
 
 import org.tinymediamanager.scraper.rottentomatoes.entities.RTMovieInfo;
+
 import retrofit.http.GET;
 import retrofit.http.Path;
 
