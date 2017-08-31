@@ -31,6 +31,7 @@ import org.tinymediamanager.scraper.UnsupportedMediaTypeException;
 import org.tinymediamanager.scraper.entities.MediaCastMember;
 import org.tinymediamanager.scraper.entities.MediaCastMember.CastType;
 import org.tinymediamanager.scraper.entities.MediaGenres;
+import org.tinymediamanager.scraper.entities.MediaRating;
 import org.tinymediamanager.scraper.entities.MediaType;
 import org.tinymediamanager.scraper.mediaprovider.IMovieMetadataProvider;
 import org.tinymediamanager.scraper.rottentomatoes.entities.RTCast;
@@ -163,7 +164,22 @@ public class RottenTomatoesMetadataProvider implements IMovieMetadataProvider {
     md.setTitle(movie.title);
     md.setYear(movie.year);
     md.addProductionCompany(movie.studio);
-    md.setRating(movie.ratings.audience_score / 10f);
+
+    if (movie.ratings != null) {
+      if (movie.ratings.audience_score > 0) {
+        MediaRating rating = new MediaRating("rt_audience");
+        rating.setRating((float) movie.ratings.audience_score);
+        rating.setMaxValue(100);
+        md.addRating(rating);
+      }
+      if (movie.ratings.critics_score > 0) {
+        MediaRating rating = new MediaRating("rt_critics");
+        rating.setRating((float) movie.ratings.critics_score);
+        rating.setMaxValue(100);
+        md.addRating(rating);
+      }
+    }
+
     md.setRuntime(movie.runtime);
 
     // genres

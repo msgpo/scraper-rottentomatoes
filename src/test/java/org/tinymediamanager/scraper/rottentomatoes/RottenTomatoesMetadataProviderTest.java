@@ -28,6 +28,7 @@ import org.tinymediamanager.scraper.MediaScrapeOptions;
 import org.tinymediamanager.scraper.MediaSearchOptions;
 import org.tinymediamanager.scraper.MediaSearchResult;
 import org.tinymediamanager.scraper.entities.MediaGenres;
+import org.tinymediamanager.scraper.entities.MediaRating;
 import org.tinymediamanager.scraper.entities.MediaType;
 import org.tinymediamanager.scraper.mediaprovider.IMovieMetadataProvider;
 
@@ -59,7 +60,18 @@ public class RottenTomatoesMetadataProviderTest {
       assertNotNull("MediaMetadata", md);
       assertEquals("title", "Twelve Monkeys (12 Monkeys)", md.getTitle());
       assertEquals("year", 1995, md.getYear());
-      assertEquals("rating", 8.8d, md.getRating(), 0.2d);
+
+      assertThat(md.getRatings().size()).isEqualTo(2);
+      MediaRating mediaRating = md.getRatings().get(0);
+      assertThat(mediaRating.getRating()).isGreaterThan(0);
+      assertThat(mediaRating.getVoteCount()).isGreaterThan(0);
+      assertThat(mediaRating.getMaxValue()).isEqualTo(100);
+
+      mediaRating = md.getRatings().get(1);
+      assertThat(mediaRating.getRating()).isGreaterThan(0);
+      assertThat(mediaRating.getVoteCount()).isGreaterThan(0);
+      assertThat(mediaRating.getMaxValue()).isEqualTo(100);
+
       assertEquals("plot", "", md.getPlot());
       assertThat(md.getProductionCompanies()).containsOnly("Universal Pictures");
       assertEquals("imdbid", "tt0114746", md.getId(MediaMetadata.IMDB));
